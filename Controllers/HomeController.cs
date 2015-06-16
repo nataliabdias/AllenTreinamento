@@ -6,7 +6,8 @@ using System.Web.Mvc;
 
 namespace MvcSample.Controllers
 {
-    
+    [Authorize]
+
     public class HomeController : Controller
     {
         //

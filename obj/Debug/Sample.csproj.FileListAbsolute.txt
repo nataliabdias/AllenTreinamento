@@ -34,3 +34,7 @@ C:\Users\Admin\Documents\GitHub\AllenTreinamento\bin\System.Web.WebPages.Deploym
 C:\Users\Admin\Documents\GitHub\AllenTreinamento\bin\System.Web.WebPages.Razor.xml
 C:\Users\Admin\Documents\GitHub\AllenTreinamento\obj\Debug\Sample.dll
 C:\Users\Admin\Documents\GitHub\AllenTreinamento\obj\Debug\Sample.pdb
+C:\Users\Admin\Documents\GitHub\AllenTreinamento\bin\WebMatrix.Data.dll
+C:\Users\Admin\Documents\GitHub\AllenTreinamento\bin\WebMatrix.WebData.dll
+C:\Users\Admin\Documents\GitHub\AllenTreinamento\bin\WebMatrix.Data.xml
+C:\Users\Admin\Documents\GitHub\AllenTreinamento\bin\WebMatrix.WebData.xml
