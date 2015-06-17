@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Sample.Models.Pessoa
+
+@section scripts 
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("a#lnkExcluir").click(function (e) {
+                var id = $(this).attr("data-id");
+                e.preventDefault();
+                $("#modalConfirmation").modal("show");
+                $("#btnConfirmarExclusao").attr("data-id", id);
+            })
+            $("#btnConfirmarExclusao").click(function () {
+                var id = $(this).attr("data-id");
+
+                $.ajax({
+                    url: "/Pessoa/Remove",
+                    contentType: "application/json",
+                    data: JSON.stringify({ id: id }),
+                    type: "DELETE",
+                    success: function () {
+                        $("#modalConfirmation").modal("hide");
+                        $("a#lnkExcluir[data-id='" + id + "']").closest("tr").fadeOut("slow");
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+<div class="page-header">
+    <header>Administracao de Cliente</header>
+</div>
+
+<article>
+
+    @if (ViewBag.Success != null)
+    { 
+        <div class="alert alert-success" role="alert">@ViewBag.Success</div>
+    }
+
+    <table class="table tale-striped table-bordered">
+
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Logradouro</th>
+                <th>Bairro</th>
+                <th>CEP</th>
+                <th>Cidade</th>
+                <th>Estado</th>
+                <th>Pais</th>
+                <th>Acoes de Pessoa</th>
+
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var endereco in Model.Endereco)
+            {
+                <tr>
+                    <td>@endereco.Id</td>
+                    <td>@endereco.Logradouro</td>
+                    <td>@endereco.Bairro</td>
+                    <td>@endereco.CEP</td>
+                    <td>@endereco.Cidade</td>
+                    <td>@endereco.Estado</td>
+                    <td>@endereco.Pais</td>
+
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = endereco.Id })
+                        @Html.ActionLink("Excluir", "Remove", new { id = endereco.Id }, new { id = "lnkExcluir", data_id = endereco.Id })
+                    </td>
+                    
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+    <div>
+        <a href="/Endereco/New?idPessoa=@Model.Id" class="btn btn-primary btn-success pull-right" role="button">Criar Novo Cliente</a>
+    </div>
+
+</article>
+
+<!-- Modal -->
+<div class="modal fade" id="modalConfirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirmação de Exclusão</h4>
+            </div>
+            <div class="modal-body">
+                Deseja realemnte excluir o Cliente ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="btnConfirmarExclusao">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
