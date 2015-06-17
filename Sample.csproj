@@ -58,6 +58,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -129,18 +130,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\UserController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Base\BaseController.cs" />
+    <Compile Include="Controllers\EnderecoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\Pessoa\PessoaController.cs" />
     <Compile Include="Controllers\User\UserController.cs" />
     <Compile Include="Filters\LogActionAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infra\Data\Context.cs" />
+    <Compile Include="Infra\Interfaces\IRepository.cs" />
+    <Compile Include="Infra\Mapping\EnderecoMapping.cs" />
+    <Compile Include="Infra\Mapping\PessoaMapping.cs" />
+    <Compile Include="Infra\Mapping\UserMapping.cs" />
+    <Compile Include="Infra\Repository\Interfaces\IPessoaRepository.cs" />
+    <Compile Include="Infra\Repository\Interfaces\IUserRepository.cs" />
+    <Compile Include="Infra\Repository\PessoaRepository.cs" />
+    <Compile Include="Infra\Repository\UserRepository.cs" />
     <Compile Include="Models\Conta.cs" />
     <Compile Include="Models\Endereco.cs" />
     <Compile Include="Models\Pessoa.cs" />
@@ -150,6 +163,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Sample.mdf" />
+    <Content Include="App_Data\Sample_log.ldf">
+      <DependentUpon>Sample.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -254,16 +271,19 @@
     <Content Include="Web.config.uninstall.xdt" />
     <Content Include="Web.config.install.xdt" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\New.cshtml" />
+    <Content Include="Views\Partial\_Menu.cshtml" />
+    <Content Include="Views\Partial\_UserMenu.cshtml" />
+    <Content Include="Views\Pessoa\Index.cshtml" />
+    <Content Include="Views\Pessoa\New.cshtml" />
+    <Content Include="Views\Pessoa\Edit.cshtml" />
+    <Content Include="Views\Endereco\Index.cshtml" />
+    <Content Include="Views\Endereco\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Infra\Data\" />
-    <Folder Include="Infra\Interfaces\" />
-    <Folder Include="Infra\Mapping\" />
-    <Folder Include="Infra\Repository\Interfaces\" />
     <Folder Include="Views\Conta\" />
-    <Folder Include="Views\Endereco\" />
-    <Folder Include="Views\Pessoa\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

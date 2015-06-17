@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<Sample.Models.User>
+
+@section scripts 
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("a#lnkExcluir").click(function (e) {
+                    var id = $(this).attr("data-id");
+                    e.preventDefault();
+                    $("#modalConfirmation").modal("show");
+                    $("#btnConfirmarExclusao").attr("data-id", id);
+                })
+                $("#btnConfirmarExclusao").click(function () {
+                    var id = $(this).attr("data-id");
+
+                    $.ajax({
+                        url: "/User/Remove",
+                        contentType: "application/json",
+                        data: JSON.stringify({ id: id }),
+                        type: "DELETE",
+                        success: function () {
+                            $("#modalConfirmation").modal("hide");
+                            $("a#lnkExcluir[data-id='" + id + "']").closest("tr").fadeOut("slow");
+                        }
+                    });
+                });
+            });
+        </script>
+    }
+
+<div class="page-header">
+    <header>Administracao de Usuario</header>
+</div>
+
+<article>
+
+    @if (ViewBag.Success != null)
+    { 
+        <div class="alert alert-success" role="alert">@ViewBag.Success</div>
+    }    
+    
+    <table class="table tale-striped table-bordered">
+
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Data de Criacao</th>
+                <th>Acoes</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Name</td>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>@user.CriationDate.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new {id = user.Id})
+                        @Html.ActionLink("Excluir", "Remove", new { id = user.Id }, new { id = "lnkExcluir", data_id = user.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+    <div>
+        <a href="/User/New" class="btn btn-primary btn-success pull-right" role="button">Criar Novo Usuário</a>
+    </div>
+
+</article>
+
+<!-- Modal -->
+<div class="modal fade" id="modalConfirmation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Confirmação de Exclusão</h4>
+      </div>
+      <div class="modal-body">
+        Deseja realemnte excluir o usuário ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" id="btnConfirmarExclusao">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
